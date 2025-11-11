@@ -117,9 +117,10 @@ export default function SystemHealthMonitor({
   };
 
   return (
-    <div className="relative bg-gray-900/60 backdrop-blur-xl border border-gray-700/80 rounded-2xl overflow-hidden p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-      {/* Left side: content */}
+    <div className="relative bg-gray-900/60 backdrop-blur-xl border border-gray-700/80 rounded-2xl overflow-hidden px-8 py-6 flex flex-col md:flex-row md:items-center md:justify-between md:gap-10">
+      {/* Left side */}
       <div className="flex-1 relative z-10">
+        {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
             <h2 className="text-xl font-bold text-green-400 tracking-wide">
@@ -183,7 +184,8 @@ export default function SystemHealthMonitor({
           </div>
         </div>
 
-        <div className="space-y-3">
+        {/* Service cards */}
+        <div className="space-y-3 pr-4">
           {services.map((service, index) => (
             <div
               key={index}
@@ -226,6 +228,7 @@ export default function SystemHealthMonitor({
           ))}
         </div>
 
+        {/* Footer bar */}
         <div className="mt-6 pt-4 border-t border-gray-700/60">
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm text-gray-400">Overall Status</span>
@@ -256,13 +259,13 @@ export default function SystemHealthMonitor({
         </div>
       </div>
 
-      {/* Right side: prominent animated robot */}
+      {/* Right side: Robot */}
       <motion.img
         src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/files-blob/public/assets/bot_greenprint-H9JtPdDs77kivcY7EdoYWFriVul1yT.gif"
         alt="Security Bot"
-        className="w-40 md:w-64 opacity-80 pointer-events-none select-none md:mr-6 self-center"
+        className="w-32 md:w-56 opacity-90 pointer-events-none select-none md:mr-4 self-center"
         animate={{
-          y: [0, -8, 0],
+          y: [0, -6, 0],
           filter: [
             "drop-shadow(0 0 6px rgba(0,255,0,0.6))",
             "drop-shadow(0 0 14px rgba(0,255,0,0.9))",
