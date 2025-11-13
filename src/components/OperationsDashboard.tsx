@@ -4,7 +4,7 @@ import {
   FileCheck, AlertCircle, Clock, Shield, ChevronRight,
   Menu, X, MessageSquare, Send, Flame, Trophy, Target,
   Zap, Database, Network, ArrowLeft, Bot, FileText, Share,
-  XCircle, Calendar
+  XCircle, Calendar, HelpCircle
 } from 'lucide-react';
 import { supabase } from '../utils/supabase';
 import { ethers } from 'ethers';
@@ -68,22 +68,13 @@ export default function OperationsDashboard({ onBack }: OperationsDashboardProps
   const [timeRange, setTimeRange] = useState<'week' | 'month' | 'year'>('week');
   const [loading, setLoading] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [chatOpen, setChatOpen] = useState(false);
   const [activeView, setActiveView] = useState('dashboard');
-  const [botAnimation, setBotAnimation] = useState(0);
 
   useEffect(() => {
     loadDashboardData();
     const interval = setInterval(loadDashboardData, 30000);
     return () => clearInterval(interval);
   }, [timeRange]);
-
-  useEffect(() => {
-    const botInterval = setInterval(() => {
-      setBotAnimation(prev => (prev + 1) % 3);
-    }, 2000);
-    return () => clearInterval(botInterval);
-  }, []);
 
   const handleNavigation = (view: string) => {
     setActiveView(view);
@@ -432,7 +423,7 @@ export default function OperationsDashboard({ onBack }: OperationsDashboardProps
               </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
               <div className="bg-gray-800 rounded-2xl border border-gray-700 p-6">
                 <div className="flex items-center justify-between mb-6">
                   <div>
@@ -498,54 +489,71 @@ export default function OperationsDashboard({ onBack }: OperationsDashboardProps
 
               <SystemHealthMonitor systemHealth={stats.systemHealth} />
             </div>
+
+            <div className="bg-gray-800 rounded-2xl border border-gray-700 p-6">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="text-xl font-bold text-white">AI Assistant</h2>
+                  <p className="text-sm text-gray-400 mt-1">Common questions about the platform</p>
+                </div>
+                <div className="p-3 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl">
+                  <HelpCircle className="w-5 h-5 text-white" />
+                </div>
+              </div>
+
+              <div className="space-y-3">
+                <button className="w-full text-left p-4 bg-gray-700 hover:bg-gray-600 rounded-lg transition-all group">
+                  <div className="flex items-start space-x-3">
+                    <MessageSquare className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <h3 className="text-sm font-semibold text-white group-hover:text-blue-400 transition-colors">How do I issue a credential?</h3>
+                      <p className="text-xs text-gray-400 mt-1">Learn about the credential issuance process and requirements</p>
+                    </div>
+                  </div>
+                </button>
+
+                <button className="w-full text-left p-4 bg-gray-700 hover:bg-gray-600 rounded-lg transition-all group">
+                  <div className="flex items-start space-x-3">
+                    <MessageSquare className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <h3 className="text-sm font-semibold text-white group-hover:text-green-400 transition-colors">How do students verify their credentials?</h3>
+                      <p className="text-xs text-gray-400 mt-1">Understand the verification process and sharing options</p>
+                    </div>
+                  </div>
+                </button>
+
+                <button className="w-full text-left p-4 bg-gray-700 hover:bg-gray-600 rounded-lg transition-all group">
+                  <div className="flex items-start space-x-3">
+                    <MessageSquare className="w-5 h-5 text-orange-400 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <h3 className="text-sm font-semibold text-white group-hover:text-orange-400 transition-colors">What is a soulbound token?</h3>
+                      <p className="text-xs text-gray-400 mt-1">Learn about non-transferable blockchain credentials</p>
+                    </div>
+                  </div>
+                </button>
+
+                <button className="w-full text-left p-4 bg-gray-700 hover:bg-gray-600 rounded-lg transition-all group">
+                  <div className="flex items-start space-x-3">
+                    <MessageSquare className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <h3 className="text-sm font-semibold text-white group-hover:text-red-400 transition-colors">How do I revoke a credential?</h3>
+                      <p className="text-xs text-gray-400 mt-1">Steps to revoke credentials in case of errors or fraud</p>
+                    </div>
+                  </div>
+                </button>
+              </div>
+
+              <div className="mt-6 pt-6 border-t border-gray-700">
+                <p className="text-xs text-gray-500 text-center">
+                  Need more help? Contact support or check our documentation
+                </p>
+              </div>
+            </div>
               </>
             )}
           </main>
         </div>
       </div>
-
-      {chatOpen && (
-        <div className="fixed bottom-20 right-4 w-80 h-96 bg-gray-800 border border-gray-700 rounded-2xl shadow-2xl flex flex-col">
-          <div className="flex items-center justify-between p-4 border-b border-gray-700">
-            <div className="flex items-center space-x-2">
-              <MessageSquare className="w-5 h-5 text-blue-400" />
-              <span className="font-semibold text-white">Support Chat</span>
-            </div>
-            <button onClick={() => setChatOpen(false)} className="text-gray-400 hover:text-white">
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-          <div className="flex-1 p-4 overflow-y-auto space-y-3">
-            <div className="flex items-start space-x-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
-                <Shield className="w-4 h-4 text-white" />
-              </div>
-              <div className="bg-gray-700 rounded-lg p-3 max-w-[70%] animate-fade-in">
-                <p className="text-sm text-gray-200">Hello! How can I assist you with the operations dashboard?</p>
-              </div>
-            </div>
-          </div>
-          <div className="p-4 border-t border-gray-700">
-            <div className="flex items-center space-x-2">
-              <input
-                type="text"
-                placeholder="Type a message..."
-                className="flex-1 bg-gray-700 text-white px-4 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              <button className="p-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
-                <Send className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      <button
-        onClick={() => setChatOpen(!chatOpen)}
-        className="fixed bottom-4 right-4 w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-500 text-white rounded-full shadow-lg hover:shadow-2xl transition-all duration-300 flex items-center justify-center transform hover:scale-110 animate-bounce-slow"
-      >
-        {chatOpen ? <X className="w-6 h-6" /> : <MessageSquare className="w-6 h-6" />}
-      </button>
 
       <AnimatedGreenRobot size={150} color="#00FF00" animationSpeed={2} />
     </div>
