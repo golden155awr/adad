@@ -238,18 +238,6 @@ export default function StudentWallet() {
                       <Share2 className="w-4 h-4 mr-1" />
                       QR
                     </button>
-                  </div>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => {
-                        const dbCred = dbCredentials.find(c => c.token_id === credential.tokenId);
-                        if (dbCred) setShareCredential(dbCred);
-                      }}
-                      className="flex-1 bg-green-600 text-white py-2 px-3 rounded-lg text-sm font-medium hover:bg-green-700 transition-colors flex items-center justify-center"
-                    >
-                      <Share2 className="w-4 h-4 mr-1" />
-                      Share Link
-                    </button>
                     <button
                       onClick={() => {
                         const dbCred = dbCredentials.find(c => c.token_id === credential.tokenId);

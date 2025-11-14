@@ -283,23 +283,15 @@ export default function VerificationPortal() {
               </div>
             </div>
 
-            <div className="mt-6 flex gap-3">
+            <div className="mt-6">
               <a
                 href={getIPFSUrl(credential.ipfsHash)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center"
+                className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center"
               >
                 <ExternalLink className="w-5 h-5 mr-2" />
                 View Document
-              </a>
-              <a
-                href={`https://mumbai.polygonscan.com/token/${credential.tokenId}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 bg-gray-100 text-gray-700 py-3 px-4 rounded-lg font-medium hover:bg-gray-200 transition-colors flex items-center justify-center"
-              >
-                View on Explorer
               </a>
             </div>
           </div>
